@@ -39,7 +39,7 @@ export default function MapDataDisplay({
             tick={<CategoryTick />}
           />
           <YAxis />
-          <Tooltip content={<CustomTooltip />} />
+          {/*<Tooltip content={<CustomTooltip />} />*/}
           <Legend verticalAlign="top" />
           <Bar
             dataKey="wins"

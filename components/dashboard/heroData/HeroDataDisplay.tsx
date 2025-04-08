@@ -42,7 +42,7 @@ export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
             tick={<CategoryTick />}
           />
           <YAxis />
-          <Tooltip content={<CustomTooltip />} />
+          {/*<Tooltip content={<CustomTooltip />} />*/}
           <Legend verticalAlign="top" />
           <Bar
             dataKey="wins"
