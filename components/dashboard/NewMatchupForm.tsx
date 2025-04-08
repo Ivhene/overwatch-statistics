@@ -220,12 +220,12 @@ export function NewMatchupForm({
               control={form.control}
               name="win"
               render={({ field }) => (
-                <FormItem className="flex flex-col p-2 rounded gap-[2px]">
+                <FormItem className="flex flex-col gap-[3px] pl-2 rounded ">
                   <FormLabel className="text-overwatch_blue_main">
                     Win
                   </FormLabel>
                   <FormControl>
-                    <div className="h-10 bg-white border flex justify-center items-center p-3 rounded-sm w-10">
+                    <div className="h-fit bg-white border flex justify-center items-center rounded-sm w-10 p-2">
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
