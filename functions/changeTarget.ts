@@ -18,11 +18,14 @@ function findTeam(matchups: MatchupWithMaps[], includeYou: boolean) {
   let newMatchups: MatchupWithMaps[] = [];
 
   matchups.forEach((matchup) => {
-    includeYou ? newMatchups.push(matchup) : null;
+    if (includeYou) newMatchups.push(matchup);
     newMatchups.push(addAlly1(matchup));
     newMatchups.push(addAlly2(matchup));
     newMatchups.push(addAlly3(matchup));
     newMatchups.push(addAlly4(matchup));
+    if (matchup.match.game_format === "6v6") {
+      newMatchups.push(addAlly5(matchup));
+    }
   });
 
   return newMatchups;
@@ -37,6 +40,9 @@ function findEnemyTeam(matchups: MatchupWithMaps[]) {
     newMatchups.push(addEnemy3(matchup));
     newMatchups.push(addEnemy4(matchup));
     newMatchups.push(addEnemy5(matchup));
+    if (matchup.match.game_format === "6v6") {
+      newMatchups.push(addEnemy6(matchup));
+    }
   });
 
   return newMatchups;
@@ -50,11 +56,17 @@ function findOthers(matchups: MatchupWithMaps[]) {
     newMatchups.push(addAlly2(matchup));
     newMatchups.push(addAlly3(matchup));
     newMatchups.push(addAlly4(matchup));
+    if (matchup.match.game_format === "6v6") {
+      newMatchups.push(addAlly5(matchup));
+    }
     newMatchups.push(addEnemy1(matchup));
     newMatchups.push(addEnemy2(matchup));
     newMatchups.push(addEnemy3(matchup));
     newMatchups.push(addEnemy4(matchup));
     newMatchups.push(addEnemy5(matchup));
+    if (matchup.match.game_format === "6v6") {
+      newMatchups.push(addEnemy6(matchup));
+    }
   });
 
   return newMatchups;
@@ -70,10 +82,13 @@ function addAlly1(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy3: matchup.enemy3,
     enemy4: matchup.enemy4,
     enemy5: matchup.enemy5,
+    // retain optional enemy6 if present
+    enemy6: matchup.enemy6,
     ally1: matchup.heroPlayed,
     ally2: matchup.ally2,
     ally3: matchup.ally3,
     ally4: matchup.ally4,
+    ally5: matchup.ally5,
     match: matchup.match,
   };
 }
@@ -88,10 +103,12 @@ function addAlly2(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy3: matchup.enemy3,
     enemy4: matchup.enemy4,
     enemy5: matchup.enemy5,
+    enemy6: matchup.enemy6,
     ally1: matchup.ally1,
     ally2: matchup.heroPlayed,
     ally3: matchup.ally3,
     ally4: matchup.ally4,
+    ally5: matchup.ally5,
     match: matchup.match,
   };
 }
@@ -106,10 +123,12 @@ function addAlly3(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy3: matchup.enemy3,
     enemy4: matchup.enemy4,
     enemy5: matchup.enemy5,
+    enemy6: matchup.enemy6,
     ally1: matchup.ally1,
     ally2: matchup.ally2,
     ally3: matchup.heroPlayed,
     ally4: matchup.ally4,
+    ally5: matchup.ally5,
     match: matchup.match,
   };
 }
@@ -124,10 +143,34 @@ function addAlly4(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy3: matchup.enemy3,
     enemy4: matchup.enemy4,
     enemy5: matchup.enemy5,
+    enemy6: matchup.enemy6,
     ally1: matchup.ally1,
     ally2: matchup.ally2,
     ally3: matchup.ally3,
     ally4: matchup.heroPlayed,
+    ally5: matchup.ally5,
+    match: matchup.match,
+  };
+}
+
+function addAlly5(matchup: MatchupWithMaps): MatchupWithMaps {
+  // Only call this if matchup.ally5 is defined.
+  return {
+    matchupID: matchup.matchupID,
+    heroPlayed: matchup.ally5!,
+    win: matchup.win,
+    enemy1: matchup.enemy1,
+    enemy2: matchup.enemy2,
+    enemy3: matchup.enemy3,
+    enemy4: matchup.enemy4,
+    enemy5: matchup.enemy5,
+    enemy6: matchup.enemy6,
+    ally1: matchup.ally1,
+    ally2: matchup.ally2,
+    ally3: matchup.ally3,
+    ally4: matchup.ally4,
+    // Swap heroPlayed with ally5 as in the other functions
+    ally5: matchup.heroPlayed,
     match: matchup.match,
   };
 }
@@ -142,10 +185,13 @@ function addEnemy1(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy3: matchup.ally2,
     enemy4: matchup.ally3,
     enemy5: matchup.ally4,
+    enemy6: matchup.ally5,
     ally1: matchup.enemy2,
     ally2: matchup.enemy3,
     ally3: matchup.enemy4,
     ally4: matchup.enemy5,
+    // retain optional ally5 if present
+    ally5: matchup.enemy6,
     match: matchup.match,
   };
 }
@@ -160,10 +206,12 @@ function addEnemy2(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy3: matchup.ally2,
     enemy4: matchup.ally3,
     enemy5: matchup.ally4,
+    enemy6: matchup.ally5,
     ally1: matchup.enemy1,
     ally2: matchup.enemy3,
     ally3: matchup.enemy4,
     ally4: matchup.enemy5,
+    ally5: matchup.enemy6,
     match: matchup.match,
   };
 }
@@ -178,10 +226,12 @@ function addEnemy3(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy3: matchup.ally2,
     enemy4: matchup.ally3,
     enemy5: matchup.ally4,
+    enemy6: matchup.ally5,
     ally1: matchup.enemy2,
     ally2: matchup.enemy1,
     ally3: matchup.enemy4,
     ally4: matchup.enemy5,
+    ally5: matchup.enemy6,
     match: matchup.match,
   };
 }
@@ -196,10 +246,12 @@ function addEnemy4(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy3: matchup.ally2,
     enemy4: matchup.ally3,
     enemy5: matchup.ally4,
+    enemy6: matchup.ally5,
     ally1: matchup.enemy2,
     ally2: matchup.enemy3,
     ally3: matchup.enemy1,
     ally4: matchup.enemy5,
+    ally5: matchup.enemy6,
     match: matchup.match,
   };
 }
@@ -214,10 +266,34 @@ function addEnemy5(matchup: MatchupWithMaps): MatchupWithMaps {
     enemy3: matchup.ally2,
     enemy4: matchup.ally3,
     enemy5: matchup.ally4,
+    enemy6: matchup.ally5,
     ally1: matchup.enemy2,
     ally2: matchup.enemy3,
     ally3: matchup.enemy4,
     ally4: matchup.enemy1,
+    ally5: matchup.enemy6,
+    match: matchup.match,
+  };
+}
+
+function addEnemy6(matchup: MatchupWithMaps): MatchupWithMaps {
+  // Only call this if matchup.enemy6 is defined.
+  return {
+    matchupID: matchup.matchupID,
+    heroPlayed: matchup.enemy6!,
+    win: !matchup.win,
+    enemy1: matchup.ally5!,
+    enemy2: matchup.ally1,
+    enemy3: matchup.ally2,
+    enemy4: matchup.ally3,
+    enemy5: matchup.ally4,
+    // Swap enemy6 with heroPlayed similar to the ally functions:
+    enemy6: matchup.heroPlayed,
+    ally1: matchup.enemy2,
+    ally2: matchup.enemy3,
+    ally3: matchup.enemy4,
+    ally4: matchup.enemy5,
+    ally5: matchup.enemy6,
     match: matchup.match,
   };
 }

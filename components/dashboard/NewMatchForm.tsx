@@ -56,6 +56,11 @@ const formSchema = z.object({
       required_error: "Please select a role",
     })
     .min(1, "Please select a role"),
+  format: z
+    .string({
+      required_error: "Please select a format",
+    })
+    .min(1, "Please select a result"),
 });
 
 export function NewMatchForm({ close }: NewMatchFormProps) {
@@ -71,6 +76,7 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
       map: "",
       result: "",
       role: "",
+      format: "",
     },
   });
 
@@ -111,6 +117,7 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
         map: values.map,
         result: values.result,
         role: values.role,
+        game_format: values.format,
         matchup: matchups,
       };
 
@@ -138,7 +145,12 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
 
   function checkValues() {
     const values = form.getValues();
-    return values.map !== "" && values.result !== "" && values.role !== "";
+    return (
+      values.map !== "" &&
+      values.result !== "" &&
+      values.role !== "" &&
+      values.format !== ""
+    );
   }
 
   return (
@@ -165,12 +177,13 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
                 matchups.length === 0 ? null : matchups[matchups.length - 1]
               }
               role={form.getValues().role}
+              format={form.getValues().format}
             />
           </DialogContent>
         </Dialog>
         <Form {...form}>
           <form className="w-full mt-6">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-4 gap-4">
               <FormField
                 control={form.control}
                 name="map"
@@ -244,6 +257,34 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
                       </FormControl>
                       <SelectContent className="max-h-64">
                         {selectResult()}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="format"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Format
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      disabled={matchups.length > 0}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="xl:w-[180px] w-36">
+                          <SelectValue placeholder="Select format" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        <SelectItem value="5v5">5v5</SelectItem>
+                        <SelectItem value="6v6">6v6</SelectItem>
+                        <SelectItem value="stadium">Stadium</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

@@ -78,6 +78,7 @@ export async function findGame(gameID: number) {
       user1: "",
       role: "",
       result: "",
+      game_format: "",
     };
   }
 }
@@ -91,6 +92,7 @@ export async function addNewGame(match: MatchToSave) {
         result: match.result,
         role: match.role,
         user1: user?.id ?? "",
+        game_format: match.game_format,
       },
     });
 
@@ -106,10 +108,12 @@ export async function addNewGame(match: MatchToSave) {
             enemy3: m.enemy3,
             enemy4: m.enemy4,
             enemy5: m.enemy5,
+            enemy6: m.enemy6 ?? null, // Handle undefined as null
             ally1: m.ally1,
             ally2: m.ally2,
             ally3: m.ally3,
             ally4: m.ally4,
+            ally5: m.ally5 ?? null, // Handle undefined as null
             order: index,
             matchID: savedMatch.matchID,
           },

@@ -33,7 +33,8 @@ export function displayByRoleAgainst(
         matchup.enemy2.name === hero.name ||
         matchup.enemy3.name === hero.name ||
         matchup.enemy4.name === hero.name ||
-        matchup.enemy5.name === hero.name
+        matchup.enemy5.name === hero.name ||
+        (matchup.enemy6 && matchup.enemy6.name === hero.name)
       ) {
         matchup.win ? wins++ : losses++;
         heroMatchups.push(matchup);
@@ -68,7 +69,8 @@ export function displayByRoleWith(role: string, matchups: MatchupWithMaps[]) {
         matchup.ally1.name === hero.name ||
         matchup.ally2.name === hero.name ||
         matchup.ally3.name === hero.name ||
-        matchup.ally4.name === hero.name
+        matchup.ally4.name === hero.name ||
+        (matchup.ally5 && matchup.ally5.name === hero.name)
       ) {
         matchup.win ? wins++ : losses++;
         heroMatchups.push(matchup);

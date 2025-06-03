@@ -233,62 +233,76 @@ export const Heroes: Hero[] = [
     role: "damage",
   },
   {
-    heroID: 30,
+    heroID: 34,
     name: "Tracer",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/a66413200e934da19540afac965cfe8a2de4ada593d9a52d53108bb28e8bbc9c.png",
     role: "damage",
   },
   {
-    heroID: 39,
+    heroID: 35,
     name: "Venture",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/7e33dd756c8a1abca519af6c3bf26813f2f81d39885373539efcf8442c4bc647.png",
     role: "damage",
   },
   {
-    heroID: 34,
+    heroID: 36,
     name: "Widowmaker",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/a714f1cb33cc91c6b5b3e89ffe7e325b99e7c89cc8e8feced594f81305147efe.png",
     role: "damage",
   },
   {
-    heroID: 35,
+    heroID: 37,
     name: "Winston",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/bd9c8e634d89488459dfc1aeb21b602fa5c39aa05601a4167682f3a3fed4e0ee.png",
     role: "tank",
   },
   {
-    heroID: 41,
+    heroID: 38,
     name: "Wrecking Ball",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/5c18e39ce567ee8a84078f775b9f76a2ba891de601c059a3d2b46b61ae4afb42.png",
     role: "tank",
   },
   {
-    heroID: 36,
+    heroID: 39,
     name: "Zarya",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/8819ba85823136640d8eba2af6fd7b19d46b9ee8ab192a4e06f396d1e5231f7a.png",
     role: "tank",
   },
   {
-    heroID: 37,
+    heroID: 40,
     name: "Zenyatta",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/71cabc939c577581f66b952f9c70891db779251e8e70f29de3c7bf494edacfe4.png",
     role: "support",
   },
   {
-    heroID: 38,
+    heroID: 41,
     name: "Juno",
     image:
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/585b2d60cbd3c271b6ad5ad0922537af0c6836fab6c89cb9979077f7bb0832b5.png",
     role: "support",
   },
-];
+  {
+    heroID: 42,
+    name: "Hazard",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/612ae1e6d28125bd4d4d18c2c4e5b004936c094556239ed24a1c0a806410a020.png",
+    role: "tank",
+  },
+  {
+    heroID: 43,
+    name: "Freya",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/5d1a515607b70f87fd391d0478fb4d706e31a7aebfbcb0edd2cfce04efad256c.png",
+    role: "damage",
+  },
+].sort((a, b) => a.name.localeCompare(b.name));
 
 export const Maps: Map[] = [
   {
@@ -459,4 +473,4 @@ export const Maps: Map[] = [
       "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/07/Runasapi_2.jpg/revision/latest/scale-to-width-down/350?cb=20240619034643",
     mode: "push",
   },
-];
+].sort((a, b) => a.name.localeCompare(b.name));

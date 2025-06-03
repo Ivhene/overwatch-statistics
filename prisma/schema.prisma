@@ -9,28 +9,31 @@ datasource db {
 }
 
 model Game {
-  matchID  Int       @id @default(autoincrement())
-  map      String    @db.VarChar(255)
-  user1    String    @db.VarChar(255)
-  result   String    @db.VarChar(4)
-  role     String    @db.VarChar(7)
-  matchups Matchup[]
+  matchID     Int       @id @default(autoincrement())
+  user1       String    @db.VarChar(255)
+  result      String    @db.VarChar(4)
+  role        String    @db.VarChar(7)
+  map         String    @db.VarChar(255)
+  game_format String    @db.VarChar
+  matchups    Matchup[]
 }
 
 model Matchup {
   matchupID  Int     @id @default(autoincrement())
-  heroPlayed String  @db.VarChar(255)
   win        Boolean
+  matchID    Int
+  ally1      String  @db.VarChar(255)
+  ally2      String  @db.VarChar(255)
+  ally3      String  @db.VarChar(255)
+  ally4      String  @db.VarChar(255)
   enemy1     String  @db.VarChar(255)
   enemy2     String  @db.VarChar(255)
   enemy3     String  @db.VarChar(255)
   enemy4     String  @db.VarChar(255)
   enemy5     String  @db.VarChar(255)
-  ally1      String  @db.VarChar(255)
-  ally2      String  @db.VarChar(255)
-  ally3      String  @db.VarChar(255)
-  ally4      String  @db.VarChar(255)
-  matchID    Int
+  heroPlayed String  @db.VarChar(255)
   order      Int
+  ally5      String? @db.VarChar
+  enemy6     String? @db.VarChar
   game       Game    @relation(fields: [matchID], references: [matchID], onDelete: NoAction, onUpdate: NoAction, map: "FK__Matchup__matchID__71D1E811")
 }

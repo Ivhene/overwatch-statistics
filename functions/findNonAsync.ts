@@ -14,7 +14,7 @@ export function findAllHeroes() {
   return Heroes;
 }
 
-export function findHeroByName(name: string) {
+export function findHeroByName(name: string | undefined) {
   return (
     Heroes.find((hero) => hero.name === name) ?? {
       heroID: -1,

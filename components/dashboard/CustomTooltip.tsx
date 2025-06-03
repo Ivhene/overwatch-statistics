@@ -30,11 +30,13 @@ export function CustomTooltip(props: any) {
       ally2: matchup.ally2.name,
       ally3: matchup.ally3.name,
       ally4: matchup.ally4.name,
+      ally5: matchup.ally5 ? matchup.ally5.name : undefined,
       enemy1: matchup.enemy1.name,
       enemy2: matchup.enemy2.name,
       enemy3: matchup.enemy3.name,
       enemy4: matchup.enemy4.name,
       enemy5: matchup.enemy5.name,
+      enemy6: matchup.enemy6 ? matchup.enemy6.name : undefined,
       order: index,
     };
   });

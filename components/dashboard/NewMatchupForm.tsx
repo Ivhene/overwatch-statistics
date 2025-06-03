@@ -29,6 +29,7 @@ interface NewMatchupFormProps {
   close: () => void;
   lastMatchup: MatchupToSave | null;
   role: string;
+  format: string;
 }
 
 const formSchema = z.object({
@@ -58,6 +59,11 @@ const formSchema = z.object({
       required_error: "Please select a hero",
     })
     .min(1, "Please select a hero"),
+  ally5: z
+    .string({
+      required_error: "Please select a hero",
+    })
+    .min(1, "Please select a hero"),
   enemy1: z
     .string({
       required_error: "Please select a hero",
@@ -83,6 +89,11 @@ const formSchema = z.object({
       required_error: "Please select a hero",
     })
     .min(1, "Please select a hero"),
+  enemy6: z
+    .string({
+      required_error: "Please select a hero",
+    })
+    .min(1, "Please select a hero"),
 });
 
 export function NewMatchupForm({
@@ -90,6 +101,7 @@ export function NewMatchupForm({
   close,
   lastMatchup,
   role,
+  format,
 }: NewMatchupFormProps) {
   const [rolePlayed, setRolePlayed] = useState(role);
   const [errorMessage, setErrorMessage] = useState("");
@@ -124,11 +136,13 @@ export function NewMatchupForm({
       ally2: !lastMatchup ? "" : lastMatchup.ally2,
       ally3: !lastMatchup ? "" : lastMatchup.ally3,
       ally4: !lastMatchup ? "" : lastMatchup.ally4,
+      ally5: !lastMatchup ? "" : lastMatchup.ally5,
       enemy1: !lastMatchup ? "" : lastMatchup.enemy1,
       enemy2: !lastMatchup ? "" : lastMatchup.enemy2,
       enemy3: !lastMatchup ? "" : lastMatchup.enemy3,
       enemy4: !lastMatchup ? "" : lastMatchup.enemy4,
       enemy5: !lastMatchup ? "" : lastMatchup.enemy5,
+      enemy6: !lastMatchup ? "" : lastMatchup.enemy6,
     },
   });
 
@@ -157,11 +171,13 @@ export function NewMatchupForm({
       ally2: values.ally2,
       ally3: values.ally3,
       ally4: values.ally4,
+      ally5: values.ally5,
       enemy1: values.enemy1,
       enemy2: values.enemy2,
       enemy3: values.enemy3,
       enemy4: values.enemy4,
       enemy5: values.enemy5,
+      enemy6: values.enemy6,
     };
 
     addMatchup(matchup);
@@ -258,9 +274,7 @@ export function NewMatchupForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="max-h-64">
-                          {selectHero(
-                            rolePlayed === "tank" ? "damage" : "tank"
-                          )}
+                          {selectHero("")}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -285,7 +299,7 @@ export function NewMatchupForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="max-h-64">
-                          {selectHero("damage")}
+                          {selectHero("")}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -310,9 +324,7 @@ export function NewMatchupForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="max-h-64">
-                          {selectHero(
-                            rolePlayed === "support" ? "damage" : "support"
-                          )}
+                          {selectHero("")}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -337,13 +349,40 @@ export function NewMatchupForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="max-h-64">
-                          {selectHero("support")}
+                          {selectHero("")}
                         </SelectContent>
                       </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+                {format === "6v6" && (
+                  <FormField
+                    control={form.control}
+                    name="ally5"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-overwatch_blue_main">
+                          Ally 5
+                        </FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue placeholder="Select a verified email to display" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="max-h-64">
+                            {selectHero("")}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
               </div>
               <div className="grid sm:grid-cols-2 lg:flex lg:flex-row gap-2">
                 <FormField
@@ -364,7 +403,7 @@ export function NewMatchupForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="max-h-64">
-                          {selectHero("tank")}
+                          {selectHero("")}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -389,7 +428,7 @@ export function NewMatchupForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="max-h-64">
-                          {selectHero("damage")}
+                          {selectHero("")}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -414,7 +453,7 @@ export function NewMatchupForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="max-h-64">
-                          {selectHero("damage")}
+                          {selectHero("")}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -439,7 +478,7 @@ export function NewMatchupForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="max-h-64">
-                          {selectHero("support")}
+                          {selectHero("")}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -464,13 +503,40 @@ export function NewMatchupForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className="max-h-64">
-                          {selectHero("support")}
+                          {selectHero("")}
                         </SelectContent>
                       </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+                {format === "6v6" && (
+                  <FormField
+                    control={form.control}
+                    name="enemy6"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-overwatch_blue_main">
+                          Enemy 6
+                        </FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue placeholder="Select a verified email to display" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="max-h-64">
+                            {selectHero("")}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
               </div>
             </>
           )}

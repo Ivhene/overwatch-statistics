@@ -18,6 +18,7 @@ export type Match = {
   result: string; // Matches Game.result
   role: string; // Matches Game.role
   matchups: Matchup[]; // Array of related Matchup records
+  game_format: string;
 };
 
 export type Matchup = {
@@ -29,10 +30,12 @@ export type Matchup = {
   enemy3: string; // Matches Matchup.enemy3
   enemy4: string; // Matches Matchup.enemy4
   enemy5: string; // Matches Matchup.enemy5
+  enemy6: string | undefined; // Matches Matchup.enemy6, can be null
   ally1: string; // Matches Matchup.ally1
   ally2: string; // Matches Matchup.ally2
   ally3: string; // Matches Matchup.ally3
   ally4: string; // Matches Matchup.ally4
+  ally5: string | undefined; // Matches Matchup.ally5, can be null
   order: number;
   matchID: number; // Foreign key, corresponds to Game.matchID
 };
@@ -49,6 +52,7 @@ export type MatchToSave = {
   role: string;
   map: string;
   matchup: MatchupToSave[];
+  game_format: string;
 };
 
 export type MatchupToSave = {
@@ -59,10 +63,12 @@ export type MatchupToSave = {
   enemy3: string;
   enemy4: string;
   enemy5: string;
+  enemy6: string | undefined;
   ally1: string;
   ally2: string;
   ally3: string;
   ally4: string;
+  ally5: string | undefined;
 };
 
 export type MatchupWithMaps = {
@@ -74,10 +80,12 @@ export type MatchupWithMaps = {
   enemy3: Hero;
   enemy4: Hero;
   enemy5: Hero;
+  enemy6: Hero | undefined;
   ally1: Hero;
   ally2: Hero;
   ally3: Hero;
   ally4: Hero;
+  ally5: Hero | undefined;
   match: Match;
 };
 
