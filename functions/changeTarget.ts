@@ -1,6 +1,14 @@
 import { MatchupWithMaps } from "@/lib/types";
 
-export function changeTarget(target: string, matchups: MatchupWithMaps[]) {
+export function changeTarget(
+  target: string,
+  matchups: MatchupWithMaps[],
+  format: string
+): MatchupWithMaps[] {
+  matchups =
+    format !== ""
+      ? matchups.filter((matchup) => matchup.match.game_format === format)
+      : matchups;
   if (target === "you") return matchups;
 
   if (target === "others") return findOthers(matchups);

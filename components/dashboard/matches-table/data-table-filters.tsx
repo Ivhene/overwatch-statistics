@@ -18,13 +18,28 @@ interface DataTableFiltersProps<TData> {
 
 export function DataTableFilters({ table }: DataTableFiltersProps<Match>) {
   function clearFilters() {
-    table.getColumn("mapName")?.setFilterValue("");
-    table.getColumn("role")?.setFilterValue("");
-    table.getColumn("result")?.setFilterValue("");
+    table.resetColumnFilters();
   }
 
   return (
     <div className="flex mb-4 gap-4">
+      <Select
+        value={
+          (table.getColumn("game_format")?.getFilterValue() as string) ?? ""
+        }
+        onValueChange={(value) =>
+          table.getColumn("game_format")?.setFilterValue(value)
+        }
+      >
+        <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
+          <SelectValue placeholder="Select format" />
+        </SelectTrigger>
+        <SelectContent className="max-h-72 text-overwatch_gray_main">
+          <SelectItem value="5v5">5v5</SelectItem>
+          <SelectItem value="6v6">6v6</SelectItem>
+          <SelectItem value="stadium">Stadium</SelectItem>
+        </SelectContent>
+      </Select>
       <Select
         value={(table.getColumn("role")?.getFilterValue() as string) ?? ""}
         onValueChange={(value) =>

@@ -23,13 +23,18 @@ export function MapDataProcessing({ data }: HeroDataProps) {
   const [filterStates, setFilterStates] = useState({
     selectMapType: "control",
     selectRole: "",
+    selectFormat: "",
   });
 
   const [displayData, setDisplayData] = useState<Match[]>(data);
 
   useEffect(() => {
     let matches = data;
-
+    if (filterStates.selectFormat !== "") {
+      matches = matches.filter(
+        (match) => match.game_format === filterStates.selectFormat
+      );
+    }
     if (filterStates.selectMapType !== "") {
       matches = matches.filter(
         (match) => findMaptypeOfMap(match.map) === filterStates.selectMapType
@@ -47,6 +52,7 @@ export function MapDataProcessing({ data }: HeroDataProps) {
     setFilterStates({
       selectMapType: filterStates.selectMapType,
       selectRole: "",
+      selectFormat: "",
     });
   };
 
@@ -63,6 +69,30 @@ export function MapDataProcessing({ data }: HeroDataProps) {
           right) means you lost the match on this map.
         </p>
         <div className="w-full h-fit p-2 flex gap-4">
+          <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
+            <Label className="text-overwatch_blue_main">
+              Select Game Format
+            </Label>
+            <Select
+              value={filterStates.selectFormat}
+              onValueChange={(value) => {
+                setFilterStates((prev) => ({
+                  ...prev,
+                  selectFormat: value,
+                }));
+              }}
+              defaultValue=""
+            >
+              <SelectTrigger className="lg:w-36 xl:w-[170px] text-overwatch_gray_main bg-main_background">
+                <SelectValue placeholder="Select format" />
+              </SelectTrigger>
+              <SelectContent className="max-h-72 text-overwatch_gray_main">
+                <SelectItem value="5v5">5v5</SelectItem>
+                <SelectItem value="6v6">6v6</SelectItem>
+                <SelectItem value="stadium">Stadium</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           <div className="flex flex-col gap-2">
             <Label className="text-overwatch_blue_main">Select Role</Label>
             <Select

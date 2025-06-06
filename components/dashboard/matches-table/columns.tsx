@@ -61,4 +61,17 @@ export const columns: ColumnDef<Match>[] = [
       </Button>
     ),
   },
+  {
+    accessorKey: "game_format",
+    header: ({ column }) => (
+      <Button
+        className="pl-0"
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Format
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
 ];

@@ -119,6 +119,11 @@ export function MatchDisplay({ match, map }: MatchDisplayProps) {
               <TableHead className="bg-ally_color text-white text-center w-1/11">
                 Ally 4
               </TableHead>
+              {match.game_format === "6v6" && (
+                <TableHead className="bg-ally_color text-white text-center w-1/11">
+                  Ally 5
+                </TableHead>
+              )}
               <TableHead className="bg-overwatch_gray_main text-white text-center w-16">
                 VS
               </TableHead>
@@ -137,6 +142,11 @@ export function MatchDisplay({ match, map }: MatchDisplayProps) {
               <TableHead className="bg-enemy_color text-white text-center w-1/11">
                 Enemy 5
               </TableHead>
+              {match.game_format === "6v6" && (
+                <TableHead className="bg-enemy_color text-white text-center w-1/11">
+                  Enemy 6
+                </TableHead>
+              )}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -147,6 +157,9 @@ export function MatchDisplay({ match, map }: MatchDisplayProps) {
                 <TableCell className="w-1/11">{matchup.ally2}</TableCell>
                 <TableCell className="w-1/11">{matchup.ally3}</TableCell>
                 <TableCell className="w-1/11">{matchup.ally4}</TableCell>
+                {match.game_format === "6v6" && (
+                  <TableCell className="w-1/11">{matchup.ally5}</TableCell>
+                )}
                 <TableCell
                   className={cn(
                     "w-[50px]", // Small width for the VS column
@@ -158,6 +171,9 @@ export function MatchDisplay({ match, map }: MatchDisplayProps) {
                 <TableCell className="w-1/11">{matchup.enemy3}</TableCell>
                 <TableCell className="w-1/11">{matchup.enemy4}</TableCell>
                 <TableCell className="w-1/11">{matchup.enemy5}</TableCell>
+                {match.game_format === "6v6" && (
+                  <TableCell className="w-1/11">{matchup.enemy6}</TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>

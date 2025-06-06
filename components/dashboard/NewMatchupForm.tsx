@@ -103,7 +103,6 @@ export function NewMatchupForm({
   role,
   format,
 }: NewMatchupFormProps) {
-  const [rolePlayed, setRolePlayed] = useState(role);
   const [errorMessage, setErrorMessage] = useState("");
   const [submitClickCount, setSubmitClickCount] = useState(0);
   const [closeClickCount, setCloseClickCount] = useState(0);
@@ -225,7 +224,7 @@ export function NewMatchupForm({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="max-h-64">
-                      {selectHero(role)}
+                      {selectHero(format === "6v6" ? "" : role)}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -253,293 +252,305 @@ export function NewMatchupForm({
               )}
             />
           </div>
-          {rolePlayed !== "" && (
-            <>
-              <div className="grid sm:grid-cols-2 lg:flex lg:flex-row gap-2 mb-6">
-                <FormField
-                  control={form.control}
-                  name="ally1"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-overwatch_blue_main">
-                        Ally 1
-                      </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="max-h-64">
-                          {selectHero("")}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="ally2"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-overwatch_blue_main">
-                        Ally 2
-                      </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="max-h-64">
-                          {selectHero("")}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="ally3"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-overwatch_blue_main">
-                        Ally 3
-                      </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="max-h-64">
-                          {selectHero("")}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="ally4"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-overwatch_blue_main">
-                        Ally 4
-                      </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="max-h-64">
-                          {selectHero("")}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                {format === "6v6" && (
-                  <FormField
-                    control={form.control}
-                    name="ally5"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-overwatch_blue_main">
-                          Ally 5
-                        </FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger className="w-[180px]">
-                              <SelectValue placeholder="Select a verified email to display" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="max-h-64">
-                            {selectHero("")}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+
+          <>
+            <div className="grid sm:grid-cols-2 lg:flex lg:flex-row gap-2 mb-6">
+              <FormField
+                control={form.control}
+                name="ally1"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Ally 1
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(
+                          format === "6v6"
+                            ? ""
+                            : role === "tank"
+                            ? "damage"
+                            : "tank"
+                        )}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </div>
-              <div className="grid sm:grid-cols-2 lg:flex lg:flex-row gap-2">
-                <FormField
-                  control={form.control}
-                  name="enemy1"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-overwatch_blue_main">
-                        Enemy 1
-                      </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="max-h-64">
-                          {selectHero("")}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="enemy2"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-overwatch_blue_main">
-                        Enemy 2
-                      </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="max-h-64">
-                          {selectHero("")}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="enemy3"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-overwatch_blue_main">
-                        Enemy 3
-                      </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="max-h-64">
-                          {selectHero("")}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="enemy4"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-overwatch_blue_main">
-                        Enemy 4
-                      </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="max-h-64">
-                          {selectHero("")}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="enemy5"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-overwatch_blue_main">
-                        Enemy 5
-                      </FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a verified email to display" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="max-h-64">
-                          {selectHero("")}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                {format === "6v6" && (
-                  <FormField
-                    control={form.control}
-                    name="enemy6"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-overwatch_blue_main">
-                          Enemy 6
-                        </FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger className="w-[180px]">
-                              <SelectValue placeholder="Select a verified email to display" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent className="max-h-64">
-                            {selectHero("")}
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+              />
+              <FormField
+                control={form.control}
+                name="ally2"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Ally 2
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(format === "6v6" ? "" : "damage")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </div>
-            </>
-          )}
+              />
+              <FormField
+                control={form.control}
+                name="ally3"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Ally 3
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(
+                          format === "6v6"
+                            ? ""
+                            : role === "support"
+                            ? "damage"
+                            : "support"
+                        )}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="ally4"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Ally 4
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(format === "6v6" ? "" : "support")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {format === "6v6" && (
+                <FormField
+                  control={form.control}
+                  name="ally5"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Ally 5
+                      </FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select a verified email to display" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="max-h-64">
+                          {selectHero("")}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+            </div>
+            <div className="grid sm:grid-cols-2 lg:flex lg:flex-row gap-2">
+              <FormField
+                control={form.control}
+                name="enemy1"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Enemy 1
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(format === "6v6" ? "" : "tank")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="enemy2"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Enemy 2
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(format === "6v6" ? "" : "damage")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="enemy3"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Enemy 3
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(format === "6v6" ? "" : "damage")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="enemy4"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Enemy 4
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(format === "6v6" ? "" : "support")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="enemy5"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-overwatch_blue_main">
+                      Enemy 5
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select a verified email to display" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-64">
+                        {selectHero(format === "6v6" ? "" : "support")}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {format === "6v6" && (
+                <FormField
+                  control={form.control}
+                  name="enemy6"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-overwatch_blue_main">
+                        Enemy 6
+                      </FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select a verified email to display" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="max-h-64">
+                          {selectHero("")}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+            </div>
+          </>
+
           <div className="flex flex-row gap-4 mt-6">
             <Button
               className="bg-orange_highlighter active:bg-orange_highlighter hover:bg-orange_highlighter submit-button"

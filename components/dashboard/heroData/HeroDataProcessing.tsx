@@ -34,13 +34,18 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     selectMap: "",
     selectRole: "tank",
     selectTarget: "you",
+    selectFormat: "",
   });
 
   const [matchups, setMatchups] = useState<MatchupWithMaps[]>(data);
   const [displayData, setDisplayData] = useState<MatchupWithMaps[]>(matchups);
 
   useEffect(() => {
-    let filteredMatchups = changeTarget(filterStates.selectTarget, data);
+    let filteredMatchups = changeTarget(
+      filterStates.selectTarget,
+      data,
+      filterStates.selectFormat
+    );
     setMatchups(filteredMatchups);
     if (filterStates.selectHeroPlayed !== "") {
       filteredMatchups = filterByHero(
@@ -70,6 +75,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
       selectMapType: "",
       selectRole: filterStates.selectRole,
       selectTarget: filterStates.selectTarget,
+      selectFormat: "",
     });
   };
 
@@ -94,7 +100,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             : "Results of matchups when playing with each hero on your team. The win bar (green on the left) means that the data target won the matchup with this hero on your team, while loss bar (red on the right) means that the data target lost the matchup with this hero on your team."}
           {` Data collected from ${matches.length} matches (${wins}W/${draws}D/${losses}L). Win/loss record is personal`}
         </p>
-        <div className="w-full h-fit p-2 grid grid-cols-2 md:grid-cols-6 gap-4 sm:grid-cols-3">
+        <div className="w-full h-fit p-2 grid grid-cols-2 md:grid-cols-4 xl:grid-cols-7 gap-4 sm:grid-cols-3">
           <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
             <Label className="text-overwatch_blue_main">
               Select Data Target
@@ -109,7 +115,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               }}
               defaultValue="you"
             >
-              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
+              <SelectTrigger className="lg:w-36 xl:w-[170px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select target" />
               </SelectTrigger>
               <SelectContent className="max-h-72 text-overwatch_gray_main">
@@ -125,6 +131,30 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             </Select>
           </div>
           <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
+            <Label className="text-overwatch_blue_main">
+              Select Game Format
+            </Label>
+            <Select
+              value={filterStates.selectFormat}
+              onValueChange={(value) => {
+                setFilterStates((prev) => ({
+                  ...prev,
+                  selectFormat: value,
+                }));
+              }}
+              defaultValue=""
+            >
+              <SelectTrigger className="lg:w-36 xl:w-[170px] text-overwatch_gray_main bg-main_background">
+                <SelectValue placeholder="Select format" />
+              </SelectTrigger>
+              <SelectContent className="max-h-72 text-overwatch_gray_main">
+                <SelectItem value="5v5">5v5</SelectItem>
+                <SelectItem value="6v6">6v6</SelectItem>
+                <SelectItem value="stadium">Stadium</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex flex-col gap-2 lg:h-fit h-full justify-between">
             <Label className="text-overwatch_blue_main">Select Role</Label>
             <Select
               value={filterStates.selectRole}
@@ -136,7 +166,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
               }}
               defaultValue="tank"
             >
-              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
+              <SelectTrigger className="lg:w-36 xl:w-[170px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
               <SelectContent className="max-h-72 text-overwatch_gray_main">
@@ -157,7 +187,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
+              <SelectTrigger className="lg:w-36 xl:w-[170px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select hero played" />
               </SelectTrigger>
               <SelectContent className="max-h-72 text-overwatch_gray_main">
@@ -177,7 +207,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
+              <SelectTrigger className="lg:w-36 xl:w-[170px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select map types" />
               </SelectTrigger>
               <SelectContent className="max-h-72 text-overwatch_gray_main">
@@ -196,7 +226,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
                 }));
               }}
             >
-              <SelectTrigger className="lg:w-36 xl:w-[180px] text-overwatch_gray_main bg-main_background">
+              <SelectTrigger className="lg:w-36 xl:w-[170px] text-overwatch_gray_main bg-main_background">
                 <SelectValue placeholder="Select map" />
               </SelectTrigger>
               <SelectContent className="max-h-72 text-overwatch_gray_main">
@@ -205,7 +235,7 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
             </Select>
           </div>
           <Button
-            className="mb-0 mt-auto lg:w-36 xl:w-[180px] gap-1 bg-overwatch_blue_main"
+            className="mb-0 mt-auto lg:w-36 xl:w-[170px] gap-1 bg-overwatch_blue_main"
             onClick={handleClearFilters}
           >
             <X /> Clear Filters

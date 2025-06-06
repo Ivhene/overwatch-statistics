@@ -328,11 +328,13 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
                 <TableCell className="bg-cyan-400">{matchup.ally2}</TableCell>
                 <TableCell className="bg-cyan-400">{matchup.ally3}</TableCell>
                 <TableCell className="bg-cyan-400">{matchup.ally4}</TableCell>
+                <TableCell className="bg-cyan-400">{matchup.ally5}</TableCell>
                 <TableCell className="bg-red-900">{matchup.enemy1}</TableCell>
                 <TableCell className="bg-red-900">{matchup.enemy2}</TableCell>
                 <TableCell className="bg-red-900">{matchup.enemy3}</TableCell>
                 <TableCell className="bg-red-900">{matchup.enemy4}</TableCell>
                 <TableCell className="bg-red-900">{matchup.enemy5}</TableCell>
+                <TableCell className="bg-red-900">{matchup.enemy6}</TableCell>
                 <TableCell
                   onClick={() => DeleteMatchup(matchup)}
                   className="bg-red-600 cursor-pointer"

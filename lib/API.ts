@@ -85,12 +85,13 @@ export async function findGame(gameID: number) {
 
 export async function addNewGame(match: MatchToSave) {
   try {
+    const role = match.game_format === "5v5" ? match.role : ""; // Not locked to a role in 6v6
     const user = await currentUser();
     const savedMatch = await prisma.game.create({
       data: {
         map: match.map,
         result: match.result,
-        role: match.role,
+        role: role,
         user1: user?.id ?? "",
         game_format: match.game_format,
       },
