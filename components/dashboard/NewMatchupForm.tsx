@@ -186,7 +186,7 @@ export function NewMatchupForm({
     if (submitClickCount === 0) {
       setSubmitClickCount(1);
     } else {
-      form.handleSubmit(onSubmit)();
+      onSubmit(form.getValues());
     }
   }
 
