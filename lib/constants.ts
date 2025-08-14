@@ -302,6 +302,13 @@ export const Heroes: Hero[] = [
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/5d1a515607b70f87fd391d0478fb4d706e31a7aebfbcb0edd2cfce04efad256c.png",
     role: "damage",
   },
+  {
+    heroID: 44,
+    name: "Wuyang",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/d4/OW2_Wuyang.png/revision/latest/scale-to-width-down/1000?cb=20250814163523",
+    role: "support",
+  },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export const Maps: Map[] = [
@@ -472,5 +479,11 @@ export const Maps: Map[] = [
     image:
       "https://static.wikia.nocookie.net/overwatch_gamepedia/images/0/07/Runasapi_2.jpg/revision/latest/scale-to-width-down/350?cb=20240619034643",
     mode: "push",
+  },
+  {
+    name: "Aatlis",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e6/Aatlis_loading_screen.png/revision/latest/scale-to-width-down/1000?cb=20250624194631",
+    mode: "flashpoint",
   },
 ].sort((a, b) => a.name.localeCompare(b.name));
