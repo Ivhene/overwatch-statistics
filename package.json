@@ -39,7 +39,7 @@
     "@types/react-dom": "^19",
     "postcss": "^8",
     "prisma": "^6.9.0",
-    "tailwindcss": "^4.1.6",
+    "tailwindcss": "^4.1.16",
     "typescript": "^5"
   }
 }
