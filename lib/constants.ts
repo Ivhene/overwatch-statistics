@@ -306,8 +306,15 @@ export const Heroes: Hero[] = [
     heroID: 44,
     name: "Wuyang",
     image:
-      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/d/d4/OW2_Wuyang.png/revision/latest/scale-to-width-down/1000?cb=20250814163523",
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/e4157a71bb307b4ca910d901773f43d187c22101c5f4284a0a5f3caba8ec4bdd.png",
     role: "support",
+  },
+  {
+    heroID: 45,
+    name: "Vendetta",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/62f32041c5bdcb11bdaff6581fee2a9a372d8f61e117b36a1dc8ff6d0c8a1ead.png",
+    role: "damage",
   },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
