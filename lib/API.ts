@@ -5,7 +5,14 @@ import { Match, MatchToSave } from "./types";
 import { currentUser } from "@clerk/nextjs/server";
 import { Heroes, Maps } from "./constants";
 
-const prisma = new PrismaClient();
+let prisma: PrismaClient | undefined;
+
+function getPrisma() {
+  if (!prisma) {
+    prisma = new PrismaClient();
+  }
+  return prisma;
+}
 
 async function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -40,12 +47,12 @@ export async function findAllGames() {
   try {
     const user = await currentUser();
     if (!user) {
-      // If user is not authenticated, redirect to the login page
-      window.location.href = "/";
-      return;
+      // User not authenticated — return empty result rather than using client-only APIs
+      return [];
     }
 
-    const games = await prisma.game.findMany({
+    const db = getPrisma();
+    const games = await db.game.findMany({
       include: {
         matchups: true,
       },
@@ -61,7 +68,8 @@ export async function findAllGames() {
 
 export async function findGame(gameID: number) {
   try {
-    const game = await prisma.game.findUnique({
+    const db = getPrisma();
+    const game = await db.game.findUnique({
       where: { matchID: gameID },
       include: {
         matchups: true,
@@ -80,6 +88,7 @@ export async function findGame(gameID: number) {
       result: "",
       game_format: "",
     };
+    return game;
   }
 }
 
@@ -87,7 +96,8 @@ export async function addNewGame(match: MatchToSave) {
   try {
     const role = match.game_format === "5v5" ? match.role : ""; // Not locked to a role in 6v6
     const user = await currentUser();
-    const savedMatch = await prisma.game.create({
+    const db = getPrisma();
+    const savedMatch = await db.game.create({
       data: {
         map: match.map,
         result: match.result,
@@ -100,7 +110,7 @@ export async function addNewGame(match: MatchToSave) {
     // Ensure all matchup creations are complete before revalidation
     await Promise.all(
       match.matchup.map(async (m, index) => {
-        const res = await prisma.matchup.create({
+        const res = await db.matchup.create({
           data: {
             heroPlayed: m.heroPlayed,
             win: m.win,
@@ -136,15 +146,16 @@ export async function deleteData() {
     // Ensure all deletions are complete before revalidation
     await Promise.all(
       data.map(async (match) => {
+        const db = getPrisma();
         await Promise.all(
           match.matchups.map(async (matchup) => {
-            await prisma.matchup.delete({
+            await db.matchup.delete({
               where: { matchupID: matchup.matchupID },
             });
           })
         );
 
-        await prisma.game.delete({
+        await db.game.delete({
           where: { matchID: match.matchID },
         });
       })
@@ -157,15 +168,16 @@ export async function deleteData() {
 export async function deleteMatches(matches: Match[]) {
   await Promise.all(
     matches.map(async (match: Match) => {
+      const db = getPrisma();
       await Promise.all(
         match.matchups.map(async (matchup) => {
-          await prisma.matchup.delete({
+          await db.matchup.delete({
             where: { matchupID: matchup.matchupID },
           });
         })
       );
 
-      await prisma.game.delete({
+      await db.game.delete({
         where: { matchID: match.matchID },
       });
     })
