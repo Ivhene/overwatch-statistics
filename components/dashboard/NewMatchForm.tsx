@@ -41,26 +41,10 @@ interface NewMatchFormProps {
 }
 
 const formSchema = z.object({
-  map: z
-    .string({
-      required_error: "Please select a map",
-    })
-    .min(1, "Please select a map"),
-  result: z
-    .string({
-      required_error: "Please select a result",
-    })
-    .min(1, "Please select a result"),
-  role: z
-    .string({
-      required_error: "Please select a role",
-    })
-    .min(1, "Please select a role"),
-  format: z
-    .string({
-      required_error: "Please select a format",
-    })
-    .min(1, "Please select a result"),
+  map: z.string().nonempty("Please select a map"),
+  result: z.string().nonempty("Please select a result"),
+  role: z.string().nonempty("Please select a role"),
+  format: z.string().nonempty("Please select a format"),
 });
 
 export function NewMatchForm({ close }: NewMatchFormProps) {

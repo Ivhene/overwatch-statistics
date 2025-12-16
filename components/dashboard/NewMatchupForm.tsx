@@ -34,66 +34,18 @@ interface NewMatchupFormProps {
 
 const formSchema = z.object({
   win: z.boolean().default(false).optional(),
-  heroplayed: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  ally1: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  ally2: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  ally3: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  ally4: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  ally5: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  enemy1: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  enemy2: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  enemy3: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  enemy4: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  enemy5: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
-  enemy6: z
-    .string({
-      required_error: "Please select a hero",
-    })
-    .min(1, "Please select a hero"),
+  heroplayed: z.string().nonempty("Please select a hero"),
+  ally1: z.string().nonempty("Please select a hero"),
+  ally2: z.string().nonempty("Please select a hero"),
+  ally3: z.string().nonempty("Please select a hero"),
+  ally4: z.string().nonempty("Please select a hero"),
+  ally5: z.string().nonempty("Please select a hero"),
+  enemy1: z.string().nonempty("Please select a hero"),
+  enemy2: z.string().nonempty("Please select a hero"),
+  enemy3: z.string().nonempty("Please select a hero"),
+  enemy4: z.string().nonempty("Please select a hero"),
+  enemy5: z.string().nonempty("Please select a hero"),
+  enemy6: z.string().nonempty("Please select a hero"),
 });
 
 export function NewMatchupForm({
