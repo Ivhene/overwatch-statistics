@@ -316,6 +316,55 @@ export const Heroes: Hero[] = [
       "https://d15f34w2p8l1cc.cloudfront.net/overwatch/62f32041c5bdcb11bdaff6581fee2a9a372d8f61e117b36a1dc8ff6d0c8a1ead.png",
     role: "damage",
   },
+  {
+    heroID: 46,
+    name: "Domina",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/1161c112292c56c052c0ae711792fcde06e3251b98bc9709e582dd7585b5dcd6.png",
+    role: "tank",
+  },
+  {
+    heroID: 47,
+    name: "Anran",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/2c38b41d79a1ce9a08b9ad8eb7edf3ff819bd448af16a5815be8c7fdb7203aa0.png",
+    role: "damage",
+  },
+  {
+    heroID: 48,
+    name: "Emre",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/c51e2f698138861c0e3b6cfab3c3ca9d67fd709be175e7c397aa6f2649712a30.png",
+    role: "damage",
+  },
+  {
+    heroID: 49,
+    name: "Mizuki",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/a9733c2367e0cbd70b9316fd2e1e17028653ec56d0051ea6ff098531dc4f99fc.png",
+    role: "support",
+  },
+  {
+    heroID: 50,
+    name: "Jetpack Cat",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/03a184cd0de27091e0099ac22635ad9615a8f6997881a5c25cc5f2444764f729.png",
+    role: "support",
+  },
+  {
+    heroID: 51,
+    name: "Sierra",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/4bfd3d8b95844231115cb5bf4db03344c71bc3e865189c52403b2dc51438e63a.png",
+    role: "damage",
+  },
+  {
+    heroID: 52,
+    name: "Shion",
+    image:
+      "https://d15f34w2p8l1cc.cloudfront.net/overwatch/070481cf871590a2b45a51d1335f9fe3d65eb4e4d361ecdd998b34fae2ed65d5.png",
+    role: "damage",
+  },
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export const Maps: Map[] = [
@@ -492,5 +541,11 @@ export const Maps: Map[] = [
     image:
       "https://static.wikia.nocookie.net/overwatch_gamepedia/images/e/e6/Aatlis_loading_screen.png/revision/latest/scale-to-width-down/1000?cb=20250624194631",
     mode: "flashpoint",
+  },
+  {
+    name: "Neon Junction",
+    image:
+      "https://static.wikia.nocookie.net/overwatch_gamepedia/images/4/4e/NeonJunction1.png/revision/latest/scale-to-width-down/1000?cb=20260524051418",
+    mode: "hybrid",
   },
 ].sort((a, b) => a.name.localeCompare(b.name));
