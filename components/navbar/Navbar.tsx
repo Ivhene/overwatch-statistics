@@ -71,7 +71,7 @@ export function Navbar() {
             <Trash />
             Delete data
           </Button>
-          <UserButton afterSignOutUrl="/" />
+          <UserButton />
         </div>
       </div>
       {mobileSidebarOpen && (

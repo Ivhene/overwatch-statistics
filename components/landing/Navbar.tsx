@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/nextjs";
+import { SignInButton, SignUpButton, UserButton, Show } from "@clerk/nextjs";
 
 export default function Navbar() {
   return (
@@ -17,13 +11,13 @@ export default function Navbar() {
         alt="Overwatch 2 logo"
       />
       <div className="flex items-center">
-        <SignedIn>
+        <Show when="signed-in">
           <Button className="mr-3 bg-orange_highlighter hover:bg-orange-400 active:bg-orange_highlighter font-bold">
             <Link href="/mypage">My page</Link>
           </Button>
-          <UserButton afterSignOutUrl="/" />
-        </SignedIn>
-        <SignedOut>
+          <UserButton />
+        </Show>
+        <Show when="signed-out">
           <SignInButton mode="modal" fallbackRedirectUrl={"/mypage"}>
             <Button className="mr-3 bg-orange_highlighter hover:bg-orange-400 active:bg-orange_highlighter font-bold">
               Sign in
@@ -34,7 +28,7 @@ export default function Navbar() {
               Sign Up
             </Button>
           </SignUpButton>
-        </SignedOut>
+        </Show>
       </div>
     </nav>
   );

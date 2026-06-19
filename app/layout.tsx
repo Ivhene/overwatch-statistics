@@ -18,12 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider afterSignOutUrl="/">
       <html lang="en">
         <body
           className={cn(
             "h-full text-neutral-800 bg-extra_background",
-            inter.className
+            inter.className,
           )}
         >
           {children}

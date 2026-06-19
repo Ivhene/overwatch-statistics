@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/landing/Navbar";
 import { Button } from "@/components/ui/button";
-import { SignedOut, SignInButton } from "@clerk/nextjs";
+import { SignInButton, Show } from "@clerk/nextjs";
 import Image from "next/image";
 import { env } from "process";
 
@@ -28,13 +28,13 @@ export default function Home() {
             check out the winrates you have on each map. Both sets off stats can
             be filtered by which hero you played
           </p>
-          <SignedOut>
+          <Show when="signed-out">
             <SignInButton mode="modal" fallbackRedirectUrl={"/mypage"}>
               <Button className="bg-orange_highlighter hover:bg-orange-400 active:bg-orange_highlighter font-bold w-48 h-16 text-xl rounded-xl m-auto mt-4 mb-4">
                 Sign in
               </Button>
             </SignInButton>
-          </SignedOut>
+          </Show>
         </div>
       </div>
     </div>
