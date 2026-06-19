@@ -4,12 +4,17 @@ import { PrismaClient } from "@prisma/client";
 import { Match, MatchToSave } from "./types";
 import { currentUser } from "@clerk/nextjs/server";
 import { Heroes, Maps } from "./constants";
+import { PrismaPg } from "@prisma/adapter-pg";
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 
 let prisma: PrismaClient | undefined;
 
 function getPrisma() {
   if (!prisma) {
-    prisma = new PrismaClient();
+    prisma = new PrismaClient({
+      adapter: adapter,
+    });
   }
   return prisma;
 }
@@ -130,7 +135,7 @@ export async function addNewGame(match: MatchToSave) {
           },
         });
         return res;
-      })
+      }),
     );
   } catch (error) {
     console.error("Error adding new game:", error);
@@ -152,13 +157,13 @@ export async function deleteData() {
             await db.matchup.delete({
               where: { matchupID: matchup.matchupID },
             });
-          })
+          }),
         );
 
         await db.game.delete({
           where: { matchID: match.matchID },
         });
-      })
+      }),
     );
   } catch (error) {
     console.error("Error deleting data:", error);
@@ -174,12 +179,12 @@ export async function deleteMatches(matches: Match[]) {
           await db.matchup.delete({
             where: { matchupID: matchup.matchupID },
           });
-        })
+        }),
       );
 
       await db.game.delete({
         where: { matchID: match.matchID },
       });
-    })
+    }),
   );
 }
