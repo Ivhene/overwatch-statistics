@@ -19,8 +19,7 @@ import {
 import { MatchupWithMaps } from "@/lib/types";
 import { usePathname } from "next/navigation";
 import { CustomTooltip } from "../CustomTooltip";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 interface HeroDataDisplayProps {
   data: MatchupWithMaps[];
   role: string;
@@ -28,45 +27,7 @@ interface HeroDataDisplayProps {
 
 export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
   const path = usePathname();
-  const [isLocked, setIsLocked] = useState(false);
-  const [tooltipData, setTooltipData] = useState<{
-    payload?: any[];
-    label?: string;
-    x?: number;
-    y?: number;
-  }>({});
-
-  const LockedTooltip = (props: any) => {
-    useEffect(() => {
-      if (
-        !isLocked &&
-        props.payload?.length > 0 &&
-        props.coordinate?.x !== tooltipData.x
-      ) {
-        setTooltipData({
-          payload: props.payload,
-          x: props.coordinate?.x,
-          y: props.coordinate?.y,
-          label: props.label,
-        });
-      }
-    }, [
-      isLocked,
-      props.payload,
-      props.coordinate?.x,
-      props.coordinate?.y,
-      props.label,
-      tooltipData.x,
-    ]);
-
-    return (
-      <CustomTooltip
-        {...props}
-        payload={tooltipData.payload ?? props.payload ?? []}
-        label={tooltipData.label ?? props.label}
-      />
-    );
-  };
+  const [tooltipActive, setTooltipActive] = useState(false);
 
   const display =
     path === "/mypage/against"
@@ -74,12 +35,9 @@ export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
       : displayByRoleWith(role, data);
 
   return (
-    <div className="w-full h-full bg-main_background pb-2">
-      <ResponsiveContainer width="97.5%" height={"100%"}>
-        <BarChart
-          data={display}
-          onClick={() => setIsLocked((locked) => !locked)}
-        >
+    <div className="flex-1 min-h-0 w-full bg-main_background pb-2">
+      <ResponsiveContainer width="97.5%" height="100%">
+        <BarChart data={display}>
           <CartesianGrid strokeDasharray="1 1" />
           <XAxis
             dataKey="hero"
@@ -89,13 +47,9 @@ export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
           />
           <YAxis />
           <Tooltip
-            content={<LockedTooltip />}
+            content={<CustomTooltip />}
             wrapperStyle={{ pointerEvents: "auto" }}
-            position={
-              isLocked
-                ? { x: tooltipData.x ?? 0, y: tooltipData.y ?? 0 }
-                : undefined
-            }
+            trigger="click"
           />
           <Legend verticalAlign="top" />
           <Bar

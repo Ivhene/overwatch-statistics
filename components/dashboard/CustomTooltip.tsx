@@ -1,7 +1,6 @@
 "use client";
 
 import { convertHeroPlayedData } from "@/functions/matchDataMapper";
-import { Heroes } from "@/lib/constants";
 import { HeroPlayedData, Matchup, MatchupWithMaps } from "@/lib/types";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,9 +8,13 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 export function CustomTooltip(props: any) {
+  // Gather the current path
   const path = usePathname();
+
+  // Get the route to allow for redirects
   const router = useRouter();
 
+  // If there is no data, return nothing
   let dataCount = 0;
   props.payload.forEach((prop: any) => (dataCount += prop.value));
 
@@ -19,8 +22,10 @@ export function CustomTooltip(props: any) {
     return null;
   }
 
+  // Get the matchups from the props payload
   let matchups: MatchupWithMaps[] = props.payload[0].payload.matchups;
 
+  // Convert the matchups to a format that can be used to display the heroes played
   const matchupWithoutMap: Matchup[] = matchups.map((matchup, index) => {
     return {
       matchID: matchup.matchupID,
@@ -42,6 +47,7 @@ export function CustomTooltip(props: any) {
     };
   });
 
+  // Gather the unique matches from the matchups to allow for linking to the match page
   const matches = matchups
     .map((matchup) => matchup.match.matchID)
     .filter((matchID, index, self) => self.indexOf(matchID) === index); // gets rid of duplicates
@@ -52,6 +58,7 @@ export function CustomTooltip(props: any) {
 
   const rowSize = 6;
 
+  // Row the hero played data to allow for better display of many heroes-
   for (let i = 0; i < Math.ceil(heroPlayedData.length / 6); i++) {
     heroPlayedDataRowed[i] = []; // Initialize the row as an empty array
     for (let j = 0; j < rowSize; j++) {
