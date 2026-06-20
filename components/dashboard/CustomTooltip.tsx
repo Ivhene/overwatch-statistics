@@ -192,7 +192,7 @@ export function CustomTooltip(props: any) {
         <h3 className="font-semibold text-overwatch_blue_main">
           {isMapTooltip
             ? `Heroes on the enemy team against you on ${map.name}`
-            : `Heroes on {hero.name}s team`}
+            : `Heroes on ${hero.name}s team`}
         </h3>
         <div className="grid grid-cols-8 gap-4">
           {enemyHeroesPlayed.map((hero) => (
@@ -214,7 +214,7 @@ export function CustomTooltip(props: any) {
         </div>
       </div>
       <div>
-        <h3 className="font-semibold text-overwatch_blue_main">
+        <h3 className="font-semibold text-overwatch_blue_main pl-2">
           Data was collected from {matches.length} matches{" "}
           {`(${matchResults.wins}W/${matchResults.draws}D/${matchResults.losses}L, ${
             Math.round((matchResults.wins / matches.length) * 100 * 10) / 10
