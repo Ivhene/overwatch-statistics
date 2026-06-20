@@ -4,12 +4,13 @@ import { convertHeroPlayedData } from "@/functions/matchDataMapper";
 import { Heroes } from "@/lib/constants";
 import { HeroPlayedData, Matchup, MatchupWithMaps } from "@/lib/types";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { cn } from "@/lib/utils";
 
 export function CustomTooltip(props: any) {
   const path = usePathname();
+  const router = useRouter();
 
   let dataCount = 0;
   props.payload.forEach((prop: any) => (dataCount += prop.value));
@@ -125,7 +126,17 @@ export function CustomTooltip(props: any) {
           </h2>
           <div className="flex flex-row gap-4 justify-center w-full">
             {matches.map((match, index) => (
-              <p key={index}>[{match}]</p>
+              <button
+                key={index}
+                type="button"
+                className="rounded px-2 py-1 text-overwatch_blue_main underline underline-offset-2 hover:bg-main_background"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  router.push(`/mypage/matches/${match}`);
+                }}
+              >
+                [{match}]
+              </button>
             ))}
           </div>
         </div>
