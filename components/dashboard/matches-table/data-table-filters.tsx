@@ -91,10 +91,10 @@ export function DataTableFilters({ table }: DataTableFiltersProps<Match>) {
         <X /> Clear Filters
       </Button>
       <Button
-        disabled={table.getFilteredSelectedRowModel().rows.length <= 0}
+        disabled={table.getSelectedRowModel().rows.length <= 0}
         onClick={async () => {
           await deleteMatches(
-            table.getFilteredSelectedRowModel().rows.map((row) => row.original)
+            table.getSelectedRowModel().rows.map((row) => row.original),
           );
           window.location.reload();
         }}

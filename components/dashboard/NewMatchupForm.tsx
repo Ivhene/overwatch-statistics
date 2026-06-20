@@ -229,8 +229,8 @@ export function NewMatchupForm({
                           format === "6v6"
                             ? ""
                             : role === "tank"
-                            ? "damage"
-                            : "tank"
+                              ? "damage"
+                              : "tank",
                         )}
                       </SelectContent>
                     </Select>
@@ -285,8 +285,8 @@ export function NewMatchupForm({
                           format === "6v6"
                             ? ""
                             : role === "support"
-                            ? "damage"
-                            : "support"
+                              ? "damage"
+                              : "support",
                         )}
                       </SelectContent>
                     </Select>

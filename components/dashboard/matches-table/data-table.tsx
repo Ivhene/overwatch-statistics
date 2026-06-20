@@ -6,6 +6,7 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
+  RowSelectionState,
   getSortedRowModel,
   SortingState,
   useReactTable,
@@ -35,8 +36,9 @@ export function DataTable<TValue>({
 }: DataTableProps<Match, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
+  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
 
   const router = useRouter();
 
@@ -48,9 +50,12 @@ export function DataTable<TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onRowSelectionChange: setRowSelection,
+    enableRowSelection: true,
     state: {
       sorting,
       columnFilters,
+      rowSelection,
     },
   });
 
@@ -79,7 +84,7 @@ export function DataTable<TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -100,7 +105,7 @@ export function DataTable<TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

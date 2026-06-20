@@ -31,13 +31,15 @@ import { Plus, Trash } from "lucide-react";
 import { NewMatchupForm } from "./NewMatchupForm";
 import { selectMaps, selectResult } from "@/functions/selectMapper";
 import { useState, useEffect } from "react";
-import { MatchToSave, MatchupToSave } from "@/lib/types";
+import { Match, MatchToSave, MatchupToSave } from "@/lib/types";
 import React from "react";
-import { addNewGame } from "@/lib/API";
+import { addNewGame, updateGame } from "@/lib/API";
 import { Table, TableBody, TableCell, TableRow } from "../ui/table";
 
 interface NewMatchFormProps {
   close: () => void;
+  mode?: "create" | "edit";
+  initialMatch?: Match | null;
 }
 
 const formSchema = z.object({
@@ -47,8 +49,32 @@ const formSchema = z.object({
   format: z.string().nonempty("Please select a format"),
 });
 
-export function NewMatchForm({ close }: NewMatchFormProps) {
-  const [matchups, setMatchups] = useState<MatchupToSave[]>([]);
+function toMatchupsToSave(match: Match): MatchupToSave[] {
+  return match.matchups.map((matchup) => ({
+    win: matchup.win,
+    heroPlayed: matchup.heroPlayed,
+    ally1: matchup.ally1,
+    ally2: matchup.ally2,
+    ally3: matchup.ally3,
+    ally4: matchup.ally4,
+    ally5: matchup.ally5,
+    enemy1: matchup.enemy1,
+    enemy2: matchup.enemy2,
+    enemy3: matchup.enemy3,
+    enemy4: matchup.enemy4,
+    enemy5: matchup.enemy5,
+    enemy6: matchup.enemy6,
+  }));
+}
+
+export function NewMatchForm({
+  close,
+  mode = "create",
+  initialMatch = null,
+}: NewMatchFormProps) {
+  const [matchups, setMatchups] = useState<MatchupToSave[]>(
+    initialMatch ? toMatchupsToSave(initialMatch) : [],
+  );
   const [open, setOpen] = useState(false);
   const [submitClickCount, setSubmitClickCount] = useState(0);
   const [closeClickCount, setCloseClickCount] = useState(0);
@@ -57,12 +83,26 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      map: "",
-      result: "",
-      role: "",
-      format: "",
+      map: initialMatch?.map ?? "",
+      result: initialMatch?.result ?? "",
+      role: initialMatch?.role ?? "",
+      format: initialMatch?.game_format ?? "",
     },
   });
+
+  useEffect(() => {
+    if (!initialMatch) {
+      return;
+    }
+
+    form.reset({
+      map: initialMatch.map,
+      result: initialMatch.result,
+      role: initialMatch.role,
+      format: initialMatch.game_format,
+    });
+    setMatchups(toMatchupsToSave(initialMatch));
+  }, [initialMatch, form]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -106,7 +146,11 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
       };
 
       close();
-      await addNewGame(match);
+      if (mode === "edit" && initialMatch) {
+        await updateGame(initialMatch.matchID, match);
+      } else {
+        await addNewGame(match);
+      }
       window.location.reload();
     }
   }
@@ -146,12 +190,13 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
             disabled={!checkValues()}
             className="h-10 flex w-fit p-2 disabled:bg-opacity-75 disabled:border-neutral-900 bg-orange_highlighter gap-1 text-white rounded-md items-center justify-center mt-4"
           >
-            <Plus className="w-5" /> New Matchup
+            <Plus className="w-5" />
+            {mode === "edit" ? "Edit Matchups" : "New Matchup"}
           </DialogTrigger>
           <DialogContent className="min-w-fit bg-extra_background border-none overflow-auto max-h-screen">
             <DialogHeader>
               <DialogTitle className="text-overwatch_blue_main">
-                New Matchup
+                {mode === "edit" ? "Edit Matchup" : "New Matchup"}
               </DialogTitle>
             </DialogHeader>
             <NewMatchupForm
@@ -282,7 +327,13 @@ export function NewMatchForm({ close }: NewMatchFormProps) {
                 type="button"
                 onClick={handleSubmit}
               >
-                {submitClickCount === 0 ? "Submit" : "Confirm Submit"}
+                {submitClickCount === 0
+                  ? mode === "edit"
+                    ? "Save"
+                    : "Submit"
+                  : mode === "edit"
+                    ? "Confirm Save"
+                    : "Confirm Submit"}
               </Button>
               <Button
                 className="close-button bg-overwatch_blue_main active:bg-overwatch_blue_main hover:bg-overwatch_blue_main"

@@ -142,6 +142,68 @@ export async function addNewGame(match: MatchToSave) {
   }
 }
 
+export async function updateGame(matchID: number, match: MatchToSave) {
+  try {
+    const user = await currentUser();
+    if (!user) {
+      return;
+    }
+
+    const db = getPrisma();
+    const existingGame = await db.game.findFirst({
+      where: {
+        matchID,
+        user1: user.id,
+      },
+    });
+
+    if (!existingGame) {
+      return;
+    }
+
+    const role = match.game_format === "5v5" ? match.role : "";
+
+    await db.game.update({
+      where: { matchID },
+      data: {
+        map: match.map,
+        result: match.result,
+        role,
+        game_format: match.game_format,
+      },
+    });
+
+    await db.matchup.deleteMany({ where: { matchID } });
+
+    await Promise.all(
+      match.matchup.map(async (m, index) => {
+        const res = await db.matchup.create({
+          data: {
+            heroPlayed: m.heroPlayed,
+            win: m.win,
+            enemy1: m.enemy1,
+            enemy2: m.enemy2,
+            enemy3: m.enemy3,
+            enemy4: m.enemy4,
+            enemy5: m.enemy5,
+            enemy6: m.enemy6 ?? null,
+            ally1: m.ally1,
+            ally2: m.ally2,
+            ally3: m.ally3,
+            ally4: m.ally4,
+            ally5: m.ally5 ?? null,
+            order: index,
+            matchID,
+          },
+        });
+        return res;
+      }),
+    );
+  } catch (error) {
+    console.error("Error updating game:", error);
+  }
+}
+
 export async function deleteData() {
   try {
     const data = await findAllGames();
