@@ -18,17 +18,17 @@ export const CategoryTick = (props: any) => {
 
   const updateSize = () => {
     if (window.innerWidth >= 1500) {
-      path === "/dashboard/maps" ? setSize(90) : setSize(45); // xl and up
+      path === "/mypage/maps" ? setSize(120) : setSize(45); // xl and up
     } else if (window.innerWidth >= 1280) {
-      path === "/dashboard/maps" ? setSize(80) : setSize(40); // lg
+      path === "/mypage/maps" ? setSize(100) : setSize(40); // lg
     } else if (window.innerWidth >= 1024) {
-      path === "/dashboard/maps" ? setSize(65) : setSize(35); // lg
+      path === "/mypage/maps" ? setSize(90) : setSize(35); // lg
     } else if (window.innerWidth >= 768) {
-      path === "/dashboard/maps" ? setSize(50) : setSize(30); // md
+      path === "/mypage/maps" ? setSize(75) : setSize(30); // md
     } else if (window.innerWidth >= 640) {
-      path === "/dashboard/maps" ? setSize(35) : setSize(18); // sm
+      path === "/mypage/maps" ? setSize(50) : setSize(18); // sm
     } else {
-      path === "/dashboard/maps" ? setSize(30) : setSize(12); // smaller
+      path === "/mypage/maps" ? setSize(40) : setSize(12); // smaller
     }
   };
 

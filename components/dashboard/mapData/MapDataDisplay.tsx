@@ -42,7 +42,7 @@ export default function MapDataDisplay({
           />
           <YAxis />
           <Tooltip
-            content={<CustomTooltip />}
+            content={<CustomTooltip target="map" />}
             wrapperStyle={{ pointerEvents: "auto" }}
             trigger="click"
           />

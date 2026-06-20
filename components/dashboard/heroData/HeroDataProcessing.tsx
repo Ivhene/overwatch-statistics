@@ -44,25 +44,25 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
     let filteredMatchups = changeTarget(
       filterStates.selectTarget,
       data,
-      filterStates.selectFormat
+      filterStates.selectFormat,
     );
     setMatchups(filteredMatchups);
     if (filterStates.selectHeroPlayed !== "") {
       filteredMatchups = filterByHero(
         filterStates.selectHeroPlayed,
         filterStates.selectTarget,
-        filteredMatchups
+        filteredMatchups,
       );
     }
     if (filterStates.selectMap !== "") {
       filteredMatchups = filteredMatchups.filter(
-        (matchup) => matchup.match.map === filterStates.selectMap
+        (matchup) => matchup.match.map === filterStates.selectMap,
       );
     }
     if (filterStates.selectMapType !== "") {
       filteredMatchups = filteredMatchups.filter(
         (matchup) =>
-          findMaptypeOfMap(matchup.match.map) === filterStates.selectMapType
+          findMaptypeOfMap(matchup.match.map) === filterStates.selectMapType,
       );
     }
     setDisplayData(filteredMatchups);
@@ -242,7 +242,11 @@ export function HeroDataProcessing({ data }: HeroDataProps) {
           </Button>
         </div>
       </div>
-      <HeroDataDisplay data={displayData} role={filterStates.selectRole} />
+      <HeroDataDisplay
+        data={displayData}
+        role={filterStates.selectRole}
+        target={filterStates.selectTarget}
+      />
     </div>
   );
 }

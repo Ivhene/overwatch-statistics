@@ -23,16 +23,22 @@ import { useState } from "react";
 interface HeroDataDisplayProps {
   data: MatchupWithMaps[];
   role: string;
+  target: string;
 }
 
-export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
+export default function HeroDataDisplay({
+  data,
+  role,
+  target,
+}: HeroDataDisplayProps) {
   const path = usePathname();
-  const [tooltipActive, setTooltipActive] = useState(false);
 
   const display =
     path === "/mypage/against"
       ? displayByRoleAgainst(role, data)
       : displayByRoleWith(role, data);
+
+  console.log(target);
 
   return (
     <div className="flex-1 min-h-0 w-full bg-main_background pb-2">
@@ -47,7 +53,7 @@ export default function HeroDataDisplay({ data, role }: HeroDataDisplayProps) {
           />
           <YAxis />
           <Tooltip
-            content={<CustomTooltip />}
+            content={<CustomTooltip target={target} />}
             wrapperStyle={{ pointerEvents: "auto" }}
             trigger="click"
           />

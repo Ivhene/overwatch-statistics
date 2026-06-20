@@ -32,17 +32,17 @@ export function MapDataProcessing({ data }: HeroDataProps) {
     let matches = data;
     if (filterStates.selectFormat !== "") {
       matches = matches.filter(
-        (match) => match.game_format === filterStates.selectFormat
+        (match) => match.game_format === filterStates.selectFormat,
       );
     }
     if (filterStates.selectMapType !== "") {
       matches = matches.filter(
-        (match) => findMaptypeOfMap(match.map) === filterStates.selectMapType
+        (match) => findMaptypeOfMap(match.map) === filterStates.selectMapType,
       );
     }
     if (filterStates.selectRole !== "") {
       matches = matches.filter(
-        (match) => match.role === filterStates.selectRole
+        (match) => match.role === filterStates.selectRole,
       );
     }
     setDisplayData(matches);
