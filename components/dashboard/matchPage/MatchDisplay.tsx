@@ -49,8 +49,8 @@ export function MatchDisplay({ match, map }: MatchDisplayProps) {
               match.result === "win"
                 ? "bg-green-400"
                 : match.result === "loss"
-                ? "bg-enemy_color"
-                : "bg-yellow-400"
+                  ? "bg-enemy_color"
+                  : "bg-yellow-400",
             )}
           >
             {match.result === "win" ? (
@@ -163,7 +163,7 @@ export function MatchDisplay({ match, map }: MatchDisplayProps) {
                 <TableCell
                   className={cn(
                     "w-[50px]", // Small width for the VS column
-                    matchup.win ? "bg-green-400" : "bg-enemy_color"
+                    matchup.win ? "bg-green-400" : "bg-enemy_color",
                   )}
                 ></TableCell>
                 <TableCell className="w-1/11">{matchup.enemy1}</TableCell>
