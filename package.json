@@ -28,7 +28,7 @@
     "next": "^16.2.10",
     "pg": "^8.22.0",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7",
+    "react-dom": "^19.2.8",
     "react-hook-form": "^7.81.0",
     "recharts": "^3.9.2",
     "tailwind-merge": "^3.6.0",
