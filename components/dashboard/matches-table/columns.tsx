@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Match } from "@/lib/types";
-import { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef, StockFeatures } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
-export const columns: ColumnDef<Match>[] = [
+export const columns: ColumnDef<StockFeatures, Match>[] = [
   {
     id: "select",
     header: ({ table }) => (

@@ -9,14 +9,14 @@ import {
 import { selectMaps } from "@/functions/selectMapper";
 import { deleteMatches } from "@/lib/API";
 import { Match } from "@/lib/types";
-import { Table } from "@tanstack/react-table";
+import type { StockFeatures, Table } from "@tanstack/table-core";
 import { Trash, X } from "lucide-react";
 
-interface DataTableFiltersProps<TData> {
-  table: Table<TData>;
+interface DataTableFiltersProps {
+  table: Table<StockFeatures, Match>;
 }
 
-export function DataTableFilters({ table }: DataTableFiltersProps<Match>) {
+export function DataTableFilters({ table }: DataTableFiltersProps) {
   function clearFilters() {
     table.resetColumnFilters();
   }
