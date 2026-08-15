@@ -1,15 +1,13 @@
 "use client";
 
 import {
-  ColumnDef,
-  ColumnFiltersState,
   flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  RowSelectionState,
-  getSortedRowModel,
-  SortingState,
-  useReactTable,
+  stockFeatures,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type RowSelectionState,
+  type SortingState,
+  useTable,
 } from "@tanstack/react-table";
 
 import {
@@ -24,16 +22,14 @@ import React from "react";
 import { Match } from "@/lib/types";
 import { DataTableFilters } from "./data-table-filters";
 import { useRouter } from "next/navigation";
+import type { StockFeatures } from "@tanstack/table-core";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
+interface DataTableProps {
+  columns: ColumnDef<StockFeatures, Match>[];
   data: Match[];
 }
 
-export function DataTable<TValue>({
-  columns,
-  data,
-}: DataTableProps<Match, TValue>) {
+export function DataTable({ columns, data }: DataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -42,14 +38,12 @@ export function DataTable<TValue>({
 
   const router = useRouter();
 
-  const table = useReactTable<Match>({
+  const table = useTable<StockFeatures, Match>({
+    features: stockFeatures,
     data,
     columns,
-    getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
-    getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
     onRowSelectionChange: setRowSelection,
     enableRowSelection: true,
     state: {
