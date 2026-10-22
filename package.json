@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^7.9.15",
-    "@hookform/resolvers": "^5.9.1",
+    "@hookform/resolvers": "^6.0.0",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "@radix-ui/react-checkbox": "^1.4.1",
